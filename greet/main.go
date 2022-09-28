@@ -9,5 +9,5 @@ func main() {
 }
 
 func greeter(input string) string {
-	return "hello " + input
+	return "Hello " + input
 }
