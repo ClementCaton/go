@@ -25,4 +25,11 @@ func TestPrinter(t *testing.T) {
 			t.Errorf("Expected %q, Got %q", want, a)
 		}
 	})
+	t.Run("greet Lucien in spanish", func(t *testing.T) {
+		var a = greeter("Lucien", "spanish")
+		var want = "Hola Lucien"
+		if a != want {
+			t.Errorf("Expected %q, Got %q", want, a)
+		}
+	})
 }

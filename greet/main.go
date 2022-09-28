@@ -12,6 +12,8 @@ func greeter(input string, lang string) string {
 	switch lang {
 	case "french":
 		return "Bonjour " + input
+	case "spanish":
+		return "Hola " + input
 	default:
 		return "Hello " + input
 	}
