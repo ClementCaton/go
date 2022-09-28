@@ -1,5 +1,9 @@
 package main
 
-func sum(a int, b int) int {
-	return a + b
+func sum(b []int) int {
+	s := 0
+	for i := range b {
+		s += b[i]
+	}
+	return s
 }
