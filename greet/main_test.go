@@ -4,32 +4,22 @@ import "testing"
 
 //test printer function
 func TestPrinter(t *testing.T) {
-	t.Run("greet algosup", func(t *testing.T) {
-		var a = greeter("Algosup", "english")
-		var want = "Hello Algosup"
-		if a != want {
-			t.Errorf("Expected %q, Got %q", want, a)
-		}
-	})
-	t.Run("greet Lucien", func(t *testing.T) {
-		var a = greeter("Lucien", "english")
-		var want = "Hello Lucien"
-		if a != want {
-			t.Errorf("Expected %q, Got %q", want, a)
-		}
-	})
-	t.Run("greet Lucien in french", func(t *testing.T) {
-		var a = greeter("Lucien", "french")
-		var want = "Bonjour Lucien"
-		if a != want {
-			t.Errorf("Expected %q, Got %q", want, a)
-		}
-	})
-	t.Run("greet Lucien in spanish", func(t *testing.T) {
-		var a = greeter("Lucien", "spanish")
-		var want = "Hola Lucien"
-		if a != want {
-			t.Errorf("Expected %q, Got %q", want, a)
-		}
-	})
+	cases := []struct {
+		name string
+		lang string
+		want string
+	}{
+		{"Lucien", "english", "Hello Lucien"},
+		{"Algosup", "english", "Hello Algosup"},
+		{"Lucien", "french", "Bonjour Lucien"},
+		{"Lucien", "spanish", "Hola Lucien"},
+	}
+	for _, item := range cases {
+		t.Run("greet "+item.name+" in "+item.lang, func(t *testing.T) {
+			var a = greeter(item.name, item.lang)
+			if a != item.want {
+				t.Errorf("Expected %q, Got %q", item.want, a)
+			}
+		})
+	}
 }
