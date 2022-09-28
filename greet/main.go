@@ -1,14 +1,13 @@
 package main
 
+import "os"
+
 func main() {
-	println("Hello world")
+	var input string = os.Args[1]
+	var a = greeter(input)
+	println(a)
 }
 
-func printer(input string) string {
-	println(input)
-	return input
-}
-
-func printercaller(input string) string {
-	return ""
+func greeter(input string) string {
+	return "hello " + input
 }
