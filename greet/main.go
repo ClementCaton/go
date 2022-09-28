@@ -9,8 +9,11 @@ func main() {
 }
 
 func greeter(input string, lang string) string {
-	if lang == "french" {
+	switch lang {
+	case "french":
 		return "Bonjour " + input
+	default:
+		return "Hello " + input
 	}
-	return "Hello " + input
+
 }
