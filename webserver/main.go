@@ -14,7 +14,7 @@ type Person struct {
 
 func main() {
 	http.HandleFunc("/players/", PlayerServer)
-	http.ListenAndServe(":5000", nil)
+	http.ListenAndServe(":8080", nil)
 }
 
 // returns the wins of a player on GET /players/{name}/wins
@@ -23,18 +23,22 @@ func PlayerServer(w http.ResponseWriter, r *http.Request) {
 	name := strings.TrimSuffix(path, "/wins")
 	println(name)
 
-	players := []struct {
-		name string
-		wins int
-	}{
-		{"Pepper", 20},
-		{"Chris", 10},
-	}
+	players := map[string]int{
+		"Pepper":  20,
+		"Jhon":    20,
+		"Brendon": 10,
+		"Louis":   30}
+
+	_, exists := players[name]
 
 	switch r.Method {
 	case http.MethodGet:
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Hello World\n" + strconv.Itoa(players[0].wins)))
+		if exists {
+			w.Write([]byte(strconv.Itoa(players[name])))
+		} else {
+			w.Write([]byte("This player does not exist"))
+		}
 	case http.MethodPost:
 		w.WriteHeader(http.StatusCreated)
 		//increase the player's score
