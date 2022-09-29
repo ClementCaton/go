@@ -7,9 +7,21 @@ import (
 	"strings"
 )
 
-type Person struct {
-	Name string
-	Wins int
+var players = map[string]int{
+	"Pepper":      20,
+	"Jhon":        20,
+	"Brendon":     10,
+	"Louis":       30,
+	"Harry":       40,
+	"Zayn":        50,
+	"Niall":       60,
+	"Mia":         70, //Théo's sister
+	"Taylor":      30,
+	"Mary":        10,
+	"Maris":       20,
+	"Maryoumaris": 30,
+	"Jhonny":      30,
+	"Sins":        40,
 }
 
 func main() {
@@ -21,20 +33,13 @@ func main() {
 func PlayerServer(w http.ResponseWriter, r *http.Request) {
 	path := strings.TrimPrefix(r.URL.Path, "/players/")
 	name := strings.TrimSuffix(path, "/wins")
-	println(name)
 
-	players := map[string]int{
-		"Pepper":  20,
-		"Jhon":    20,
-		"Brendon": 10,
-		"Louis":   30}
-
-	_, exists := players[name]
+	_, playerExists := players[name]
 
 	switch r.Method {
 	case http.MethodGet:
 		w.WriteHeader(http.StatusOK)
-		if exists {
+		if playerExists {
 			w.Write([]byte(strconv.Itoa(players[name])))
 		} else {
 			w.Write([]byte("This player does not exist"))
