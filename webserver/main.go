@@ -4,6 +4,7 @@ package main
 import (
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type Person struct {
@@ -12,14 +13,14 @@ type Person struct {
 }
 
 func main() {
-	a := "pepper"
-	url := "/players/" + a + "/wins"
-	http.HandleFunc(url, PlayerServer)
+	http.HandleFunc("/players/", PlayerServer)
 	http.ListenAndServe(":5000", nil)
 }
 
 // returns the wins of a player on GET /players/{name}/wins
 func PlayerServer(w http.ResponseWriter, r *http.Request) {
+	player := strings.TrimPrefix(r.URL.Path, "/players/")
+	println(player)
 
 	players := []struct {
 		name string
