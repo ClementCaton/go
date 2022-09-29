@@ -19,8 +19,9 @@ func main() {
 
 // returns the wins of a player on GET /players/{name}/wins
 func PlayerServer(w http.ResponseWriter, r *http.Request) {
-	player := strings.TrimPrefix(r.URL.Path, "/players/")
-	println(player)
+	path := strings.TrimPrefix(r.URL.Path, "/players/")
+	name := strings.TrimSuffix(path, "/wins")
+	println(name)
 
 	players := []struct {
 		name string
