@@ -2,8 +2,8 @@
 package main
 
 import (
-	"log"
 	"net/http"
+	"strconv"
 )
 
 type Person struct {
@@ -12,26 +12,31 @@ type Person struct {
 }
 
 func main() {
+	a := "pepper"
+	url := "/players/" + a + "/wins"
+	http.HandleFunc(url, PlayerServer)
+	http.ListenAndServe(":5000", nil)
 }
-
-players := []struct{
-	name string
-	wins int
-}{
-	{"Pepper", 20},
-	{"Floyd", 10},
-}
-
 
 // returns the wins of a player on GET /players/{name}/wins
 func PlayerServer(w http.ResponseWriter, r *http.Request) {
+
+	players := []struct {
+		name string
+		wins int
+	}{
+		{"Pepper", 20},
+		{"Chris", 10},
+	}
+
 	switch r.Method {
 	case http.MethodGet:
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Hello World"))
+		w.Write([]byte("Hello World\n" + strconv.Itoa(players[0].wins)))
 	case http.MethodPost:
 		w.WriteHeader(http.StatusCreated)
 		//increase the player's score
+
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
