@@ -29,18 +29,55 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
+func getPlayerScore(name string) int {
+	score, ok := players[name]
+	if !ok {
+		return -1
+	}
+	return score
+}
+
+func URLSplit(url string) []string {
+	return strings.Split(url, "/")
+}
+
+func getURLbase(url string) string {
+	info := URLSplit(url)
+	if len(info) < 2 {
+		return "/"
+	}
+	return info[1]
+}
+
+func getURLPlayer(url string) string {
+	info := URLSplit(url)
+	if len(info) < 3 {
+		return "/"
+	}
+	return info[2]
+}
+
+func getURLCategory(url string) string {
+	info := URLSplit(url)
+	if len(info) < 4 {
+		return "/"
+	}
+	return info[3]
+}
+
 // returns the wins of a player on GET /players/{name}/wins
 func PlayerServer(w http.ResponseWriter, r *http.Request) {
-	path := strings.TrimPrefix(r.URL.Path, "/players/")
-	name := strings.TrimSuffix(path, "/wins")
+	//base := getURLbase(r.URL.Path)
+	player := getURLPlayer(r.URL.Path)
+	//category := getURLCategory(r.URL.Path)
 
-	_, playerExists := players[name]
+	score := getPlayerScore(player)
 
 	switch r.Method {
 	case http.MethodGet:
 		w.WriteHeader(http.StatusOK)
-		if playerExists {
-			w.Write([]byte(strconv.Itoa(players[name])))
+		if score != -1 {
+			w.Write([]byte(strconv.Itoa(score)))
 		} else {
 			w.Write([]byte("This player does not exist"))
 		}

@@ -1,0 +1,10 @@
+{
+	"Players":
+	[
+		{"Pepper": {"wins":0, "totalgamesplayed":9, "team":"Red"}},
+		{"Jhon":   {"wins":1, "totalgamesplayed":8, "team":"Blue"}},
+		{"Louis":  {"wins":2, "totalgamesplayed":7, "team":"Purpel"}},
+		{"Paul":   {"wins":3, "totalgamesplayed":6, "team":"Blue"}},
+		{"Mia":    {"wins":4, "totalgamesplayed":5, "team":"White"}}
+	]
+}
