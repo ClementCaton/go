@@ -2,10 +2,24 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
+
+type Players struct {
+	Players []Player
+}
+
+type Player struct {
+	Name       string
+	Wins       int
+	TotalGames int
+	Team       string
+}
 
 var players = map[string]int{
 	"Pepper":      20,
@@ -29,12 +43,25 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func getPlayerScore(name string) int {
-	score, ok := players[name]
-	if !ok {
-		return -1
+func parsePlayers() Players {
+	var players Players
+	jsonFile, err := os.Open("./players.json")
+	if err != nil {
+		panic(err)
 	}
-	return score
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	json.Unmarshal(byteValue, &players)
+	return players
+}
+
+func getPlayerScore(name string) int {
+	players := parsePlayers()
+	for _, player := range players.Players {
+		if player.Name == name {
+			return player.Wins
+		}
+	}
+	return -1
 }
 
 func URLSplit(url string) []string {
