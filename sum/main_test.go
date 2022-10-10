@@ -1,22 +1,32 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestSum(t *testing.T) {
-	t.Run("sum", func(t *testing.T) {
-		b := []int{1, 2, 3}
-		var got = sum(b)
-		var want int = 6
-		if got != want {
-			t.Errorf("Expected %d, Got %d", want, got)
-		}
-	})
-	t.Run("sum", func(t *testing.T) {
-		b := []int{1, 2, 3, 4, 5}
-		var got = sum(b)
-		var want int = 15
-		if got != want {
-			t.Errorf("Expected %d, Got %d", want, got)
-		}
-	})
+	cases := []struct {
+		b    int
+		c    int
+		want int
+	}{
+		{1, 1, 2},
+		{3, 1, 4},
+		{2, 2, 4},
+		{5, 5, 10},
+		{10, 3, 13},
+		{0, 0, 0},
+		{9, 56, 65},
+		{100, 100, 200},
+		{1024, 2048, 3072},
+	}
+
+	for _, test := range cases {
+		t.Run("sum", func(t *testing.T) {
+			var a = sum(test.b, test.c)
+			if a != test.want {
+				t.Errorf("Expected 5, got %d", a)
+			}
+		})
+	}
 }

@@ -1,21 +1,15 @@
 package main
 
-import "os"
-
 func main() {
-	var input string = os.Args[1]
-	var a = greeter(input, "french")
-	println(a)
 }
 
-func greeter(input string, lang string) string {
+func greeter(name string, lang string) string {
 	switch lang {
 	case "french":
-		return "Bonjour " + input
+		return "Bonjour " + name
 	case "spanish":
-		return "Hola " + input
+		return "Hola " + name
 	default:
-		return "Hello " + input
+		return "Hello " + name
 	}
-
 }
