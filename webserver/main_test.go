@@ -48,3 +48,14 @@ func TestGetUnknownPlayerScore(t *testing.T) {
 		t.Errorf("got %q, want %q", got, want)
 	}
 }
+
+func TestParsePlayer(t *testing.T) {
+	for name, want := range expectedScores {
+		t.Run(name, func(t *testing.T) {
+			got := getPlayerScore(name)
+			if got != want {
+				t.Errorf("got %q, want %q", got, want)
+			}
+		})
+	}
+}
